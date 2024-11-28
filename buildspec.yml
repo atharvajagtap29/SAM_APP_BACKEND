@@ -3,22 +3,22 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18  # Ensure this is correct for your Lambda runtime
+      nodejs: 18 # Ensure this is correct for your Lambda runtime
     commands:
       - echo "Printing the working directory..."
-      - pwd  # Print the current working directory
+      - pwd # Print the current working directory
       - echo "Listing files in the current directory..."
-      - ls -la  # List files to confirm the current directory contents
+      - ls -la # List files to confirm the current directory contents
       - echo "Installing dependencies..."
-      - cd App_Backend  # Go to App_Backend directory to install dependencies
-      - ls -la  # List files inside App_Backend
+      - cd App_Backend # Go to App_Backend directory to install dependencies
+      - ls -la # List files inside App_Backend
       - npm install
-      - cd ..  # Go back to the root directory
+      - cd .. # Go back to the root directory
       - echo "Installing AWS SAM CLI..."
       - curl -Lo sam-cli.zip https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
       - unzip sam-cli.zip -d sam-installation
       - sudo ./sam-installation/install
-      - sam --version  # Verify the SAM CLI installation
+      - sam --version # Verify the SAM CLI installation
 
   pre_build:
     commands:
@@ -28,12 +28,12 @@ phases:
   build:
     commands:
       - echo "Building the application..."
-      - sam build --use-container  # Ensure the build process is happening in the root
+      - sam build --use-container # Ensure the build process is happening in the root
 
   post_build:
     commands:
       - echo "Deploying the application..."
-      - sam deploy --no-confirm-changeset --stack-name my-sam-backend --region us-east-1
+      - sam deploy --no-confirm-changeset --stack-name my-sam-backend --region ap-south-1
       - echo "Deployment complete."
 
 artifacts:
