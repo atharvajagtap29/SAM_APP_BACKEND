@@ -1,5 +1,9 @@
+# More information about the configuration file can be found here:
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+version = 0.1
+
 [default]
-region = "ap-south-1"  # Add this line to set the region
+region = "ap-south-1"  # Ensure region is correct
 
 [default.global.parameters]
 stack_name = "my-sam-backend"
