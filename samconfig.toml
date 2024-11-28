@@ -1,7 +1,4 @@
-# More information about the configuration file can be found here:
-# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
-
-version = "0.1"  # This is required and should be placed at the top.
+version = 0.1
 
 [default]
 region = "ap-south-1"  # Ensure the correct region is set.
