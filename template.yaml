@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  my-sam-backend
+
+Globals:
+  Function:
+    Timeout: 30
+    LoggingConfig:
+      LogFormat: JSON
+
+Resources:
+  MySamBackendFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: App_Backend/
+      Handler: index.handler # Lambda handler entry
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiEvent: # This handles all API routes under /api/*
+          Type: Api
+          Properties:
+            Path: /api/{proxy+} # Wildcard for all API routes
+            Method: any # This allows all HTTP methods (GET, POST, etc.)
+      Environment:
+        Variables:
+          NODE_ENV: "production"
+          CONNECTION_URL: "mongodb+srv://User_1:NewMongoPass_123@mydbs.1cfku.mongodb.net/SAM_BACKEND_DB" # Update this with your actual MongoDB connection string
+          JWT_SECRET: "youfoundmeyetyoudontknowme" # Add your actual JWT secret here
+          ACCESS_TOKEN_EXPIRATION: "6h" # JWT token expiration set to 6 hours
+          COOKIE_MAX_AGE: "3h" # Cookie expiration set to 3 hours
+
+Outputs:
+  MySamBackendApi:
+    Description: API Gateway endpoint URL for Prod stage
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/api/"
+  MySamBackendFunction:
+    Description: Lambda Function ARN for My Sam Backend
+    Value: !GetAtt MySamBackendFunction.Arn
+  MySamBackendFunctionIamRole:
+    Description: IAM Role for My Sam Backend function
+    Value: !GetAtt MySamBackendFunctionRole.Arn
