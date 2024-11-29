@@ -24,17 +24,17 @@ app.use(cookieParser());
 DBConnection(); // Call the database connection function
 
 // TESTING
-app.get("/test-pipeline", (req, res) => {
+app.get('/pipeline-test', (req, res) => {
   try {
-    // Your code here
-    res.status(200).send({ message: "Test pipeline successful" });
+    res.status(200).json({
+      message: "Pipeline Working!"
+    })
   } catch (error) {
-    console.error(error);
     res.status(500).json({
-      message: "Internal Server Error",
-    });
+      message: "Internal Server Error"
+    })
   }
-});
+})
 
 // Import API routes
 const healthCheckRouter = require("./routes/healthCheck");
