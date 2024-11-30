@@ -23,13 +23,15 @@ app.use(cookieParser());
 // Connect to the database
 DBConnection(); // Call the database connection function
 
-// TESTING
-app.get("/pipeline-test", (req, res) => {
+// TEST
+app.get("/test-pipeline", (req, res) => {
   try {
+    console.log("Test pipeline executed");
     res.status(200).json({
-      message: "Pipeline Working!",
+      message: "Test pipeline executed",
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       message: "Internal Server Error",
     });
