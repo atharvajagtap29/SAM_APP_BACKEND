@@ -9,7 +9,7 @@ phases:
       - rm -rf App_Backend/node_modules
       - cd App_Backend
       - echo "Running npm ci to install dependencies..."
-      - npm ci # Clean install to ensure all dependencies are correctly installed
+      - npm ci # This command does a clean install using package-lock.json
       - cd ..
       - echo "Installing AWS SAM CLI..."
       - curl -Lo sam-cli.zip https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
@@ -33,7 +33,15 @@ artifacts:
   files:
     - template.yaml
     - samconfig.toml
-    - App_Backend/**
-    - sam-installation/**
     - deployspec.yml # Include deployspec.yml in the artifacts
-    - App_Backend/node_modules/** # Ensure node_modules is included in the build artifacts
+    - sam-installation/**
+    - App_Backend/app.js
+    - App_Backend/index.js
+    - App_Backend/package.json
+    - App_Backend/package-lock.json
+    - App_Backend/controllers/**
+    - App_Backend/models/**
+    - App_Backend/routes/**
+    - App_Backend/middlewares/**
+    - App_Backend/helpers/**
+    - App_Backend/node_modules/** # Include node_modules
