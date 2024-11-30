@@ -19,6 +19,8 @@ phases:
     commands:
       - echo "Validating the SAM template..."
       - sam validate || { echo "Template validation failed. Exiting."; exit 1; }
+      - echo "Verifying node_modules..."
+      - ls -l App_Backend
 
   build:
     commands:
@@ -32,4 +34,4 @@ artifacts:
     - App_Backend/**
     - sam-installation/**
     - deployspec.yml # Include deployspec.yml in the artifacts
-
+    - App_Backend/node_modules/** # Include node_modules
