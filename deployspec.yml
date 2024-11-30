@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Using pre-installed AWS SAM CLI from artifacts..."
+      - export PATH=$PATH:./sam-installation/bin
+      - sam --version # Verify SAM installation
+
+  pre_build:
+    commands:
+      - echo "Preparing for deployment..."
+
+  build:
+    commands:
+      - echo "Deploying the application..."
+      - sam deploy --no-confirm-changeset --stack-name my-sam-backend --region ap-south-1
+      - echo "Deployment complete."

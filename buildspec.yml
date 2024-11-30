@@ -30,3 +30,4 @@ artifacts:
     - template.yaml
     - samconfig.toml
     - App_Backend/**
+    - sam-installation/** # Include SAM CLI in artifacts
