@@ -16,3 +16,9 @@ phases:
       - echo "Deploying the application..."
       - sam deploy --no-confirm-changeset --stack-name my-sam-backend --region ap-south-1
       - echo "Deployment complete."
+
+artifacts:
+  files:
+    - template.yaml
+    - samconfig.toml
+    - App_Backend/**
