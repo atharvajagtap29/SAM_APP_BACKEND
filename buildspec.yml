@@ -5,9 +5,11 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
-      - echo "Installing dependencies..."
+      - echo "Cleaning up existing node_modules..."
+      - rm -rf App_Backend/node_modules
       - cd App_Backend
-      - npm install
+      - echo "Running npm ci to install dependencies..."
+      - npm ci # Clean install to ensure all dependencies are correctly installed
       - cd ..
       - echo "Installing AWS SAM CLI..."
       - curl -Lo sam-cli.zip https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
@@ -34,4 +36,4 @@ artifacts:
     - App_Backend/**
     - sam-installation/**
     - deployspec.yml # Include deployspec.yml in the artifacts
-    - App_Backend/node_modules/** # Include node_modules
+    - App_Backend/node_modules/** # Ensure node_modules is included in the build artifacts
