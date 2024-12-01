@@ -3,38 +3,43 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18
+      nodejs: 18 # Ensure this is correct for your Lambda runtime
     commands:
-      - echo "Cleaning up existing node_modules..."
-      - rm -rf App_Backend/node_modules
-      - cd App_Backend
-      - echo "Running npm ci to install dependencies..."
-      - npm ci # This command does a clean install using package-lock.json
-      - cd ..
+      - echo "Printing the working directory..."
+      - pwd # Print the current working directory
+      - echo "Listing files in the current directory..."
+      - ls -la # List files to confirm the current directory contents
+      - echo "Installing dependencies..."
+      - cd App_Backend # Go to App_Backend directory to install dependencies
+      - ls -la # List files inside App_Backend
+      - npm install
+      - cd .. # Go back to the root directory
       - echo "Installing AWS SAM CLI..."
       - curl -Lo sam-cli.zip https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
       - unzip sam-cli.zip -d sam-installation
       - sudo ./sam-installation/install
-      - sam --version
+      - sam --version # Verify the SAM CLI installation
 
   pre_build:
     commands:
       - echo "Validating the SAM template..."
       - sam validate || { echo "Template validation failed. Exiting."; exit 1; }
-      - echo "Verifying node_modules..."
-      - ls -l App_Backend
 
   build:
     commands:
       - echo "Building the application..."
-      - sam build --use-container
+      - sam build --use-container # Ensure the build process is happening in the root
+
+  post_build:
+    commands:
+      - echo "Deploying the application..."
+      - sam deploy --no-confirm-changeset --stack-name my-sam-backend --region ap-south-1
+      - echo "Deployment complete."
 
 artifacts:
   files:
     - template.yaml
     - samconfig.toml
-    - deployspec.yml # Include deployspec.yml in the artifacts
-    - sam-installation/**
     - App_Backend/app.js
     - App_Backend/index.js
     - App_Backend/package.json
@@ -44,4 +49,3 @@ artifacts:
     - App_Backend/routes/**
     - App_Backend/middlewares/**
     - App_Backend/helpers/**
-    - App_Backend/node_modules/** # Include node_modules
