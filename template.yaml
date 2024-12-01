@@ -26,9 +26,9 @@ Resources:
             Method: any # This allows all HTTP methods (GET, POST, etc.)
       Environment:
         Variables:
-          NODE_ENV: "production"
-          CONNECTION_URL: "mongodb+srv://User_1:NewMongoPass_123@mydbs.1cfku.mongodb.net/SAM_BACKEND_DB" # Update this with your actual MongoDB connection string
-          JWT_SECRET: "youfoundmeyetyoudontknowme" # Add your actual JWT secret here
+          NODE_ENV: "YOUR_ENV"
+          CONNECTION_URL: "YOUR_CONNECTION_URL" # Update this with your actual MongoDB connection string
+          JWT_SECRET: "YOUR_JWT_SECRET" # Add your actual JWT secret here
           ACCESS_TOKEN_EXPIRATION: "6h" # JWT token expiration set to 6 hours
           COOKIE_MAX_AGE: "3h" # Cookie expiration set to 3 hours
 
