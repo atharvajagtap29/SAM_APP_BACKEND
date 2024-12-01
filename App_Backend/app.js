@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require("cors"); // Import the cors package
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const DBConnection = require("./configs/database");
 
@@ -9,8 +9,8 @@ const app = express();
 app.use(
   cors({
     origin: "http://localhost:5173", // Allow requests from your React frontend
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Allow specific methods
-    credentials: true, // Allow cookies if needed
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Allow specified methods
+    credentials: true, // Allow cookies back that frontend is sending, for authentication
   })
 );
 
@@ -20,36 +20,19 @@ app.use(express.json());
 // Middleware to parse cookies
 app.use(cookieParser());
 
-// Connect to the database
-DBConnection(); // Call the database connection function
-
-// TEST
-app.get("/test-pipeline", (req, res) => {
+app.get("/test-pipeline", async (req, res) => {
   try {
-    console.log("Test pipeline executed");
     res.status(200).json({
-      message: "Test pipeline executed",
+      message: "Test pipeline is working",
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({
-      message: "Internal Server Error",
-    });
+    res.status(500).send({ message: "Internal Server Error" });
   }
 });
 
-app.get("/is-deploy-working", (req, res) => {
-  try {
-    res.status(200).json({
-      message: "Deploy is working",
-    });
-  } catch (error) {
-    // console.error(error);
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-});
+// Connect to the database
+DBConnection(); // Call the database connection function
 
 // Import API routes
 const healthCheckRouter = require("./routes/healthCheck");
