@@ -23,34 +23,6 @@ app.use(cookieParser());
 // Connect to the database
 DBConnection(); // Call the database connection function
 
-// TEST
-app.get("/test-pipeline", (req, res) => {
-  try {
-    console.log("Test pipeline executed");
-    res.status(200).json({
-      message: "Test pipeline executed",
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Internal Server Error",
-    });
-  }
-});
-
-app.get("/is-deploy-working", (req, res) => {
-  try {
-    res.status(200).json({
-      message: "Deploy is working",
-    });
-  } catch (error) {
-    // console.error(error);
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-});
-
 // Import API routes
 const healthCheckRouter = require("./routes/healthCheck");
 const authRouter = require("./routes/auth");
