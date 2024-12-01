@@ -94,7 +94,6 @@ Resources:
 
 1. Create a MongoDB Atlas account and cluster.
 2. Create a user and database for the app.
-3. Whitelist your Lambda IP or use `0.0.0.0/0` for quick testing (not recommended for production).
 
 ### 4. **Environment Variables**
 
@@ -147,7 +146,7 @@ Error connecting to MongoDB: MongoError: failed to connect to server [mongodb://
 #### Solution:
 
 - This issue was due to the MongoDB Atlas not accepting connections from all IP addresses by default.
-- The solution was to allow connections from `0.0.0.0/0` (all IP addresses) temporarily for testing purposes. This can be done in the MongoDB Atlas Network Access settings.
+- The solution was to allow connections from `MY_VPN_IP_address`. This can be done in the MongoDB Atlas Network Access settings.
 
 ### 2. **Missing Dependencies (bcryptjs)**
 
@@ -188,7 +187,7 @@ The connection URL stored in `process.env.CONNECTION_URL` was correctly read, bu
 
 #### Solution:
 
-- The issue was resolved after checking MongoDB Atlas for network settings and allowing connections from all IP addresses (`0.0.0.0/0`).
+- The issue was resolved after checking MongoDB Atlas for network settings and allowing connections from my VPN IP address.
 - Ensure that the environment variable `CONNECTION_URL` is correctly set in both local `.env` files and in AWS Lambda environment variables.
 
 ### 5. **Database Connection Function Not Async**
